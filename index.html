@@ -10,35 +10,37 @@
 <body>
     <div id="app" class="wrap" v-cloak>
         <h1> Пятнашки 4x4 </h1>
-        <p v-if="complete" >Поздравляю!</p>
+        <p v-if="isWin" >Поздравляю!</p>
         <div class="control-panel flex">
             <div class="steps">шаги: {{steps}}</div>
-            <div class="flex time-block"><img class="block-time_img" src="src/images/hourglass.png" alt="time">{{ getTime()}}</div>
-            <button v-if="notStop" class="btn btn-pause" @click="pause()">
+            <div class="flex time-block">
+                <img class="block-time_img" src="src/images/hourglass.png" alt="time">{{ getTime()}}
+            </div>
+
+            <button class="btn btn-restart" @click="restart()">
+                <img src="./src/images/icons8-restart-50.png" alt="restart">
+            </button>
+            <button v-if="isPlay" class="btn btn-pause" @click="pause()">
                 <img src="./src/images/icons8-pause-50.png" alt="pause">
             </button>
             <button v-else class="btn btn-continue" @click="play()">
                 <img src="./src/images/icons8-play-50.png" alt="continue">
             </button>
-            <button class="btn btn-restart" @click="restart()">
-                <img src="./src/images/icons8-restart-50.png" alt="restart">
-            </button>
         </div>
-        <div v-if="notStop" class="grid_block">
-            <div class="" v-for="(item, ind) in blocks" @click="moveBlock(item, ind)">
-                <div class="item" v-if="item !== 0"> {{item}}</div>
+        <div v-if="isPlay" class="grid_block">
+            <div :class="{
+                'grid': true,
+                'grid-three': size == 3,
+                'grid-four': size == 4,
+                'grid-five': size == 5,
+            }" >
+                <div :class="item > 0 ? 'item' : 'zero'" 
+                v-for="(item, idx) in items" 
+                @click="moveBlock(item, idx)"> 
+                    {{item}} 
+                </div>
             </div>
         </div>
-        <!-- <div class="tray_class">
-            <div :class="size == 4 ? 'grid-four': 'grid'">132456</div>
-            <div :class="{
-                'grid-four': true,
-                'bold': size < 5
-            }">132456</div>
-        </div>
-        <div class="blocks">
-            <div class="block" v-for="(item, ind) in size**2">{{item}} {{ind}}</div>
-        </div> -->
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="./src/script/main.js"></script>

@@ -16,14 +16,34 @@ h1 {
   justify-content: space-around;
   align-items: center;
 }
-.grid_block {
+.grid {
   display: grid;
-  grid-template: repeat(4, 80px) / repeat(4, 80px);
   padding: 15px;
+}
+.grid-three {
+  grid-template: repeat(3, 80px) / repeat(3, 80px);
+}
+.grid-four {
+  grid-template: repeat(4, 80px) / repeat(4, 80px);
+}
+.grid-five {
+  grid-template: repeat(5, 80px) / repeat(5, 80px);
 }
 .grid_item {
   border: 1px solid purple;
   background-color: gray;
+}
+.zero{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    width: 70px;
+    height: 70px;
+    background-color: rgba(46, 23, 116, 0);
+    border: 2px solid rgba(47, 23, 116, 0);
+    border-radius: 5px;
+    color: rgba(47, 23, 116, 0);
 }
 .item {
   display: flex;
@@ -74,12 +94,7 @@ h1 {
   border: 2px solid rgba(51, 255, 0, 0.377);
 }
 
-.grid-four {
-  color: blue;
-}
-.grid {
-  color: aquamarine;
-}
+
 .bold{
     font-weight: 900;
 }
