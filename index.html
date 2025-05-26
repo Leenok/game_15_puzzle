@@ -20,14 +20,14 @@
             <button class="btn btn-restart" @click="restart()">
                 <img src="./src/images/icons8-restart-50.png" alt="restart">
             </button>
-            <button v-if="isPlay" class="btn btn-pause" @click="pause()">
+            <button v-if="isPlay && !isWin" class="btn btn-pause" @click="pause()">
                 <img src="./src/images/icons8-pause-50.png" alt="pause">
             </button>
             <button v-else class="btn btn-continue" @click="play()">
                 <img src="./src/images/icons8-play-50.png" alt="continue">
             </button>
         </div>
-        <div v-if="isPlay" class="grid_block">
+        <div v-if="isPlay && !isWin" class="grid_block">
             <div :class="{
                 'grid': true,
                 'grid-three': size == 3,

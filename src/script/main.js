@@ -86,6 +86,7 @@ createApp({
                 this.isWin = JSON.stringify(this.items) == JSON.stringify(this.complete);
 
                 if(this.isWin){
+                    this.isPlay = false;
                     clearInterval(this.timerId);
                 }
             } 
