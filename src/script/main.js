@@ -9,20 +9,22 @@ createApp({
             isPlay: false,
             isWin: false,
 
-            size: 4,
+            size: 3,
             clickNumber: 0,
             clickNumberId: 0,
             zeroId: 15,
             items: [],
-            complete: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0],
+            complete: [],
         }
     },
     methods:{
         start(){
-            const startItems = [1,2,3,4,5,6,7,8,9,10,11,12,13];
+            this.complete = Array.from({ length: this.size**2-1 }, (_, i) => i + 1);
+            this.complete.push(0);
+            const startItems = Array.from({ length: this.size**2-3 }, (_, i) => i + 1);
             this.items = startItems.toSorted(() => Math.random() - 0.5);
-            this.items.push(14);
-            this.items.push(15);
+            this.items.push(this.size**2-2);
+            this.items.push(this.size**2-1);
             this.items.push(0);
 
             if(this.timerId){
@@ -34,7 +36,7 @@ createApp({
             this.steps = 0;
             this.time = 0;
             this.isWin = false;
-            this.zeroId = 15;
+            this.zeroId = this.size**2-1;
         },
         pause(){
             this.isPlay = false;
@@ -53,15 +55,15 @@ createApp({
             this.start();
         },
         canMove(){
-            const rightInd = [3,7,11,15];
-            const leftInd = [0,4,8,12];
-            let canMoveIds = [this.zeroId+1, this.zeroId-1, this.zeroId+4, this.zeroId-4].filter( (i) => i >=0 && i < 16);
+            const leftInds = Array.from({ length: this.size}).map((i, ind) => this.size*ind);
+            const rightInds = leftInds.map(i => i+ this.size -1);
+            let canMoveIds = [this.zeroId+1, this.zeroId-1, this.zeroId+this.size, this.zeroId-this.size].filter( (i) => i >=0 && i < this.size**2);
 
-            if(rightInd.includes(this.zeroId)){
+            if(rightInds.includes(this.zeroId)){
                 canMoveIds = canMoveIds.filter( (i) =>  i !== this.zeroId+1 );
             }
 
-            if(leftInd.includes(this.zeroId)){
+            if(leftInds.includes(this.zeroId)){
                 canMoveIds = canMoveIds.filter( (i) =>  i !== this.zeroId-1 )
             }
 

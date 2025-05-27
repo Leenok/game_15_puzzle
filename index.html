@@ -9,22 +9,32 @@
 </head>
 <body>
     <div id="app" class="wrap" v-cloak>
-        <h1> Пятнашки 4x4 </h1>
-        <p v-if="isWin" >Поздравляю!</p>
+        <h1> Пятнашки {{this.size}}x{{this.size}} </h1>
+        <div class="flex">
+            <button :class="{'btn-size':true, 'btn-size-active': this.size == 3}" @click="this.size = 3; restart()">
+                <h4>3*3</h4>
+            </button>
+            <button :class="{'btn-size':true, 'btn-size-active': this.size == 4}" @click="this.size = 4; restart()">
+                <h4>4*4</h4>
+            </button>
+            <button :class="{'btn-size':true, 'btn-size-active': this.size == 5}" @click="this.size = 5; restart()">
+                <h4>5*5</h4>
+            </button>
+        </div>
+             
         <div class="control-panel flex">
             <div class="steps">шаги: {{steps}}</div>
             <div class="flex time-block">
                 <img class="block-time_img" src="src/images/hourglass.png" alt="time">{{ getTime()}}
             </div>
-
-            <button class="btn btn-restart" @click="restart()">
-                <img src="./src/images/icons8-restart-50.png" alt="restart">
-            </button>
             <button v-if="isPlay && !isWin" class="btn btn-pause" @click="pause()">
                 <img src="./src/images/icons8-pause-50.png" alt="pause">
             </button>
-            <button v-else class="btn btn-continue" @click="play()">
+            <button v-if="!isPlay && items.length" class="btn btn-continue" @click="play()">
                 <img src="./src/images/icons8-play-50.png" alt="continue">
+            </button>
+            <button class="btn btn-restart" @click="restart()">
+                <img src="./src/images/icons8-restart-50.png" alt="restart">
             </button>
         </div>
         <div v-if="isPlay && !isWin" class="grid_block">
@@ -40,6 +50,11 @@
                     {{item}} 
                 </div>
             </div>
+        </div>
+        <div v-if="isWin">
+            <h2> Победа! </h2>
+            <p> Время: {{time}} сек, шаги: {{steps}} </p>
+            <img class="height-170" src="./src/images/icons8-win-100.png" alt="win">
         </div>
     </div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
